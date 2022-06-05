@@ -15,6 +15,7 @@ type Song struct {
 	HighestNote Note           `json:"highestNote"`
 	Singer      Singer         `json:"singer" gorm:"not null"`
 	IsCover     bool           `json:"isCover" gorm:"not null"`
+	Original    *Song          `json:"original"`
 	VideoLink   string         `json:"videoLink"`
 	CreatedAt   time.Time      `json:"createdAt"`
 	UpdatedAt   time.Time      `json:"updatedAt"`
