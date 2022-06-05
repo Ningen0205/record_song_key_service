@@ -28,7 +28,6 @@ func initialize() {
 
 	dbDriver := driver.GetInstance()
 
-	log.Printf(os.Getenv("POSTGRES_HOST"))
 	dbDriver.GetConnection(
 		os.Getenv("POSTGRES_HOST"),
 		os.Getenv("POSTGRES_USER"),

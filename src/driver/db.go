@@ -10,7 +10,7 @@ import (
 )
 
 type DatabaseDriver struct {
-	db *gorm.DB
+	DB *gorm.DB
 }
 
 var dbInstance *DatabaseDriver
@@ -24,17 +24,18 @@ func GetInstance() *DatabaseDriver {
 }
 
 func (this DatabaseDriver) GetConnection(host, user, password, dbname, port string) (db *gorm.DB) {
-	if this.db == nil {
+	if this.DB == nil {
 
 		dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s", host, user, password, dbname, port)
+
 		var err error
-		this.db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+		this.DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 		if err != nil {
 			log.Panicln(err)
 			panic("failed to connect database")
 		}
 
-		err = this.db.AutoMigrate(
+		err = this.DB.AutoMigrate(
 			&model.Key{},
 			&model.Note{},
 			&model.Singer{},
@@ -50,5 +51,5 @@ func (this DatabaseDriver) GetConnection(host, user, password, dbname, port stri
 		}
 	}
 
-	return this.db
+	return this.DB
 }
