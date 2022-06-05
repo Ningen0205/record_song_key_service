@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"io/fs"
 	"io/ioutil"
 	"log"
 	"os"
@@ -36,6 +37,17 @@ func main() {
 
 	if err != nil {
 		log.Panicln(err)
+	}
+
+	if mode == "down" {
+		length := len(files)
+
+		reversed_files := []fs.FileInfo{}
+		for i := 1; i <= length; i++ {
+			reversed_files = append(reversed_files, files[length-i])
+		}
+
+		files = reversed_files
 	}
 
 	loadEnv()
